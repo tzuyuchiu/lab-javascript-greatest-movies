@@ -60,16 +60,19 @@ console.log(
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(movies) {
+  // function sorted movies by year
   const sortedByYear = (a, b) => {
     return a.year - b.year;
   };
   return movies.sort(sortedByYear);
 }
+// clone array movies
 const cloneMovies = structuredClone(movies);
 console.log(orderByYear(cloneMovies));
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 function orderAlphabetically() {
+  // function sorted movies by title
   const sortedByTitle = (a, b) => {
     if (a.title < b.title) {
       return -1;
@@ -81,9 +84,11 @@ function orderAlphabetically() {
   };
   return movies.sort(sortedByTitle);
 }
+// clone array movies
 const cloneMovieSortedTitle = structuredClone(movies);
+// Take only first 20 objects from movies array
 const finalArr = orderAlphabetically(cloneMovieSortedTitle).slice(0, 20);
-
+// print title
 finalArr.forEach((items) => console.log(items.title));
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
