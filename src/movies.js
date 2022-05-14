@@ -1,6 +1,7 @@
 // The `movies` array from the file `src/data.js`.
-console.log('movies: ', movies);
-
+// console.log('movies: ', movies);
+// const movies = [];
+const movies = require(`./data`);
 // Iteration 1: All directors? - Get the array of all directors.
 // _Bonus_: It seems some of the directors had directed multiple movies so they will pop up multiple times in the array of directors.
 // How could you "clean" a bit this array and make it unified (without duplicates)?
@@ -37,25 +38,25 @@ function scoresAverage(movies) {
   let totalScore = movies.reduce(function (preScore, currScore) {
     return preScore + currScore.score;
   }, 0);
-  return totalScore;
+
+  return totalScore / movies.length;
 }
 
-console.log(
-  `The average score of all the movies: ${scoresAverage(movies).toFixed(2)}`
-);
+console.log(`The average score of all the movies: ${scoresAverage(movies)}`);
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(movies) {
   let result = movies.filter(function (movie) {
-    return movie.genre.includes('Drama');
+    movie.genre.includes('Drama');
   });
+
   return result;
 }
 
 console.log(
   `The averge score of all drama movies: ${scoresAverage(
     dramaMoviesScore(movies)
-  ).toFixed(2)} is lower than the general average`
+  )} is lower than the general average`
 );
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
@@ -67,7 +68,7 @@ function orderByYear(movies) {
   return movies.sort(sortedByYear);
 }
 // clone array movies
-const cloneMovies = structuredClone(movies);
+const cloneMovies = JSON.parse(JSON.stringify(movies));
 console.log(orderByYear(cloneMovies));
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
@@ -85,7 +86,7 @@ function orderAlphabetically() {
   return movies.sort(sortedByTitle);
 }
 // clone array movies
-const cloneMovieSortedTitle = structuredClone(movies);
+const cloneMovieSortedTitle = JSON.parse(JSON.stringify(movies));
 // Take only first 20 objects from movies array
 const finalArr = orderAlphabetically(cloneMovieSortedTitle).slice(0, 20);
 // print title
