@@ -100,6 +100,7 @@ function orderAlphabetically(movies) {
     }
   };
   const cloneMovieSortedTitle = JSON.parse(JSON.stringify(movies));
+  cloneMovieSortedTitle.sort(sortedByTitle);
   let twentyTitleArr = cloneMovieSortedTitle.map(function (element) {
     return element.title;
   });
