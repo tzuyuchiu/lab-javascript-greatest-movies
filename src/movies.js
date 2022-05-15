@@ -42,37 +42,53 @@ function scoresAverage(movies) {
   return totalScore / movies.length;
 }
 
-console.log(`The average score of all the movies: ${scoresAverage(movies)}`);
+// console.log(`The average score of all the movies: ${scoresAverage(movies)}`);
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(movies) {
-  let result = movies.filter(function (movie) {
-    movie.genre.includes('Drama');
+  const result = movies.filter(function (movie) {
+    return movie.genre.includes('Drama');
   });
+  let avgDrame = result.reduce(function (preScore, currScore) {
+    return preScore + currScore.score;
+  }, 0);
 
-  return result;
+  return avgDrame / result.length;
 }
 
-console.log(
-  `The averge score of all drama movies: ${scoresAverage(
-    dramaMoviesScore(movies)
-  )} is lower than the general average`
-);
+console.log(dramaMoviesScore(movies).toFixed(2));
+
+// console.log(
+//   `The averge score of all drama movies: ${scoresAverage(
+//     dramaMoviesScore(movies)
+//   )} is lower than the general average`
+// );
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(movies) {
   // function sorted movies by year
   const sortedByYear = (a, b) => {
-    return a.year - b.year;
+    if (a.year === b.year) {
+      if (a.title < b.title) {
+        return -1;
+      }
+      if (a.title > b.title) {
+        return 1;
+      }
+    } else {
+      return a.year - b.year;
+    }
   };
-  return movies.sort(sortedByYear);
+
+  const cloneMovies = JSON.parse(JSON.stringify(movies));
+  return cloneMovies.sort(sortedByYear);
 }
 // clone array movies
-const cloneMovies = JSON.parse(JSON.stringify(movies));
-console.log(orderByYear(cloneMovies));
+// const cloneMovies = JSON.parse(JSON.stringify(movies));
+console.log(orderByYear(movies));
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically() {
+function orderAlphabetically(movies) {
   // function sorted movies by title
   const sortedByTitle = (a, b) => {
     if (a.title < b.title) {
@@ -83,14 +99,20 @@ function orderAlphabetically() {
       return 0;
     }
   };
-  return movies.sort(sortedByTitle);
+  const cloneMovieSortedTitle = JSON.parse(JSON.stringify(movies));
+  let twentyTitleArr = cloneMovieSortedTitle.map(function (element) {
+    return element.title;
+  });
+  return twentyTitleArr.slice(0, 20);
 }
+
 // clone array movies
-const cloneMovieSortedTitle = JSON.parse(JSON.stringify(movies));
+// const cloneMovieSortedTitle = JSON.parse(JSON.stringify(movies));
 // Take only first 20 objects from movies array
-const finalArr = orderAlphabetically(cloneMovieSortedTitle).slice(0, 20);
+// const finalArr = orderAlphabetically(cloneMovieSortedTitle).slice(0, 20);
+
 // print title
-finalArr.forEach((items) => console.log(items.title));
+// finalArr.forEach((items) => console.log(items.title));
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes() {}
